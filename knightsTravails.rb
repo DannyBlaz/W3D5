@@ -18,9 +18,11 @@ class KnightPathFinder
         valid_mov = []
 
         col, row = pos
-
-        M
-
+        Moves.each.with_index do |ele, i|
+            new_pos = [col + ele[i][0], row + ele[i][1]] 
+            if new_pos.all?{ |val| each   }
+        end
+         #row [0,0] + [1,2] = [1,2]
         
 
     end
