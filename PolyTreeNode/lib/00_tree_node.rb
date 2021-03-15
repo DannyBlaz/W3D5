@@ -6,6 +6,7 @@ class PolyTreeNode
         @children = children
     end
 
+
     def parent=(new_parent)
         if parent
             parent.children.delete(self)
