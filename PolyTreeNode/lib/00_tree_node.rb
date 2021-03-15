@@ -28,14 +28,25 @@ class PolyTreeNode
         child.parent = nil
     end
 
-    def dfs(target_val= nil)
+    def dfs(target_val)
 
-        return self if self == target_val
+        return self if self.value == target_val
 
         self.children.each do |child|
-            child.dfs(target_val)
+           search_val = child.dfs(target_val)
+           return search_val unless search_val.nil?
        end
        nil
+    end
+
+    def bfs(target_val=nil)
+        queue = [self]
+        until queue.empty?
+            el = queue.shift
+            return el if el.value == target_val
+           queue.concat(el.children)
+        end
+        nil
     end
 
 end
