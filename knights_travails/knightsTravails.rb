@@ -41,8 +41,19 @@ class KnightPathFinder
     end
 
     def build_move_three
-        self.root_node = PolyTreeNode(start_pos)
+        # self.root_node = PolyTreeNode(start_pos)
+    end
+
+    def new_move_positions(pos)
+        v_m = KnightPathFinder.valid_moves(pos)
+        v_m.each do |ele|
+            if !@conciderd_pos.include?(ele)
+                @conciderd_pos << ele
+            end
+        end
+        @conciderd_pos
     end
 end
 
-p KnightPathFinder.valid_moves([4,4])
+a = KnightPathFinder.new([4,4])
+p a.new_move_positions([4,4])
