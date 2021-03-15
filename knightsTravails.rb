@@ -3,7 +3,25 @@ class KnightPathFinder
     attr_reader :start_pos
 
     def self.valid_moves(pos)
+
+        Moves = [
+            [1,2],
+            [1,-2],
+            [-1,2],
+            [-1,-2],
+            [2,1],
+            [2,-1],
+            [-2,1],
+            [-2,-1]
+        ]
+
         valid_mov = []
+
+        col, row = pos
+
+        M
+
+        
 
     end
 
