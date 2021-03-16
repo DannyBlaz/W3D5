@@ -1,4 +1,4 @@
-require "byebug"
+require_relative "../PolyTreeNode/lib/00_tree_node.rb" 
 class KnightPathFinder
     attr_accessor :root_node
     attr_reader :start_pos
@@ -20,13 +20,11 @@ class KnightPathFinder
         col, row = pos
         MOVES.each do |subarr|
             new_pos = [col + subarr[0], row + subarr[1]] 
-            if (new_pos[0] >= 0 && new_pos[0] <= 7) && (new_pos[1] >= 0 && new_pos[1] <= 7)
+            if new_pos[0].between?(0, 7) && new_pos[1].between?(0, 7)
                 valid_mov << new_pos
             end
         end
-        
         valid_mov
-
     end
 
     def initialize(start_pos)
@@ -36,12 +34,28 @@ class KnightPathFinder
         build_move_three
     end
 
-    def self.root_node
+    private_constant :MOVES
 
-    end
+    private
+
+    attr_accessor :root_node, :considered_positions
+
 
     def build_move_three
-        # self.root_node = PolyTreeNode(start_pos)
+        self.root_node = PolyTreeNode.new(start_pos)
+
+        # build the tree out in breadth-first fashion
+        nodes = [root_node]
+        until nodes.empty?
+            current_node = nodes.shift
+
+            current_pos = current_node.value
+            new_move_positions(current_pos).each do |next_pos|
+                next_node = PolyTreeNode.new(next_pos)
+                current_node.add_child(next_node)
+                nodes << next_node
+            end
+        end
     end
 
     def new_move_positions(pos)
@@ -53,6 +67,24 @@ class KnightPathFinder
         end
         @conciderd_pos
     end
+
+    def trace_path_back(end_node)
+    nodes = []
+
+    current_node = end_node
+    until current_node.nil?
+      nodes << current_node
+      current_node = current_node.parent
+    end
+
+    nodes
+  end
+
+end
+
+if $PROGRAM_NAME == __FILE__
+  kpf = KnightPathFinder.new([0, 0])
+  p kpf.find_path([7, 7])
 end
 
 a = KnightPathFinder.new([4,4])
